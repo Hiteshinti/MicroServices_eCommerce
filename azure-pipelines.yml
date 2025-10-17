@@ -10,7 +10,7 @@ pool:
   name: 'Hitesh_system'
 
 variables:
-  buildConfiguration: 'build'
+  buildConfiguration: 'Release'
 
 steps:
 - script: dotnet restore
