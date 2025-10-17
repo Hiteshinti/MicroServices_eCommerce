@@ -9,6 +9,19 @@ using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//AddCors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
+
+
 //Adding Services
 builder.Services.AddInfraStructure();
 builder.Services.AddCore();
@@ -22,11 +35,15 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
-
+app.UseCors("AllowAll");
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseRouting();
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    //c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserService");
+
+});
 
 
 
