@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  name:'Hitesh_system'
+  name: 'Hitesh_system'
 
 variables:
   buildConfiguration: 'build'
