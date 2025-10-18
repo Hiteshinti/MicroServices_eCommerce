@@ -1,0 +1,33 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  name: 'Hitesh_system'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet restore
+  displayName: 'Restore dependencies'
+
+- script: dotnet build --configuration $(buildConfiguration) --no-restore
+  displayName: 'Build project ($(buildConfiguration))'
+
+- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+  displayName: 'Publish to artifact staging directory'
+
+- script: copy "$(Build.SourcesDirectory)\eCommerce.API\Dockerfile" "$(Build.ArtifactStagingDirectory)"
+  displayName: 'Copy Dockerfile to artifact'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
