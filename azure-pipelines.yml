@@ -22,6 +22,9 @@ steps:
 - script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: 'Publish to artifact staging directory'
 
+- script: copy "$(Build.SourcesDirectory)\Dockerfile" "$(Build.ArtifactStagingDirectory)"
+  displayName: 'Copy Dockerfile to artifact'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
