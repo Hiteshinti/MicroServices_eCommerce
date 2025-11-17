@@ -1,0 +1,13 @@
+services:
+  ecommerce.api:
+    container_name: ecommerce.api
+    image: userserviceapp:latest
+    build:
+      context: .
+      dockerfile: eCommerce.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5013:6000
+
+    

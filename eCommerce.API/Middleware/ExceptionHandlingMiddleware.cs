@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Net;
 
 namespace eCommerce.API.MiddleWare
 {
@@ -24,11 +25,12 @@ namespace eCommerce.API.MiddleWare
             catch (Exception ex)
             {
                 _logger.LogError($"{ex.GetType().ToString()}:{ex.Message}");
-                 await httpContext.Response.WriteAsJsonAsync(ex.Message);
+                 httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await httpContext.Response.WriteAsJsonAsync(new { statuscode="500", message=ex.Message });   
             }
 
         }
-
+        
     }
 
 }

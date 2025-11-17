@@ -4,8 +4,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 9090
-EXPOSE 8091
+EXPOSE 6000
+EXPOSE 6001
 
 
 # This stage is used to build the service project
@@ -13,6 +13,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["eCommerce.API/eCommerce.API.csproj", "eCommerce.API/"]
+COPY ["eCommerce.Core/eCommerce.Core.csproj", "eCommerce.Core/"]
+COPY ["eCommerce.Infrastructure/eCommerce.Infrastructure.csproj", "eCommerce.Infrastructure/"]
 RUN dotnet restore "./eCommerce.API/eCommerce.API.csproj"
 COPY . .
 WORKDIR "/src/eCommerce.API"

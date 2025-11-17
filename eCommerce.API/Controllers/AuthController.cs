@@ -1,5 +1,6 @@
 ﻿using eCommerce.Core.DTO;
 using eCommerce.Core.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,13 +11,13 @@ namespace eCommerce.API.Controllers
     public class AuthController : ControllerBase
     {
 
-      private readonly IUserService _userService;   
+        private readonly IUserService _userService;
 
 
-      public AuthController (IUserService userService)
-      {
-            _userService = userService; 
-      }
+        public AuthController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         [HttpPost("register")]
 
@@ -32,21 +33,29 @@ namespace eCommerce.API.Controllers
                 return BadRequest(authenticationResponse);
             }
 
-            return Ok(authenticationResponse); 
+            return Ok(authenticationResponse);
         }
 
         [HttpPost("login")]
-        public async Task <IActionResult> LogIn(LoginDto loginDto)
+        public async Task<IActionResult> LogIn(LoginDto loginDto)
         {
             if (loginDto == null)
                 return BadRequest("Invalid login data");
 
             AuthenticationDto? authenticationResponse = await _userService.Login(loginDto);
 
-            if(authenticationResponse == null || authenticationResponse.Success == false)
-                return Unauthorized(authenticationResponse);  
+            if (authenticationResponse == null || authenticationResponse.Success == false)
+                return Unauthorized(authenticationResponse);
 
             return Ok(authenticationResponse);
+        }
+
+        [Authorize]
+        [HttpGet("ValidateUser")]
+        public async Task<IActionResult> ValidateUser()
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            return Ok(userId);
         }
     }
 }

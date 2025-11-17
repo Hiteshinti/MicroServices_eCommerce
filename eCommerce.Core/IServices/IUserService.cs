@@ -13,5 +13,7 @@ namespace eCommerce.Core.IServices
        Task<AuthenticationDto?> Login(LoginDto loginDto);   
 
        Task<AuthenticationDto?> Register(RegisterDto registerDto);   
+
+
     }
 }
