@@ -1,0 +1,234 @@
+.net core overview and advantages?
+
+.net core is cross platform , we can run .net core apllication various operating system like windows, mac, linux
+we can create wide range of applications using .net core and it will support for mobile, web apllications 
+.net core in built support for dependecny inecjetion , singleton pattrens, logging framework.
+
+what is startup class in .net core?
+start up class is strating of .net core  apllication it is executed first when the application starts. 
+the startup class can be configured using UseStartup<T>() method at the time of configuring the host in the Main() method of Program
+start up classcontains configure, configure service methods
+
+
+what is configure method in .net core ?
+
+The Configure method is a place where you can configure application request pipeline for your application using IApplicationBuilder instance that is provided by the built-in IoC container
+you can declare middle ware componenets here 
+parmeters iapplicatonbuuilder, ihostingebvironment
+
+what is moddle ware ?
+ A middleware is nothing but a component (class) 
+which is executed on every request in ASP.NET Core application. In the classic ASP.NET, 
+HttpHandlers and HttpModules were part of request pipeline. Middleware is similar to HttpHandlers and HttpModules where both needs to be configured and executed in each request.
+
+
+
+what is Configure services method in.net core ?
+
+configure service is method where we can intilizes services in pattren of di, singleton with parameter of IServiceCollection 
+
+order of execution of middile ware?
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseCors(MyAllowSpecificOrigins);
+
+app.UseAuthorization();
+app.useexcpetionhandler();
+custome middleware
+
+
+what is middle ware in .net core ? how to use
+
+ middleware is nothing but a component (class) which is executed on every request in ASP.NET Core application and it behaves as pipleines for every request and response 
+ you can decide which middle ware need to exceute ib the time of by passing request and response.
+
+example:- app.run() will excuet current middle ware and it will terminate here
+          app.use() will excute currnt middleware and continues execute next midiile ware 
+
+how to enable session in .net core?
+
+app.UseSession();  to enable the session  here
+
+services.addsession() you can idle time out in 
+
+  HttpContext.Session.SetString()
+
+
+how to add authentication policy in .net core ?
+
+
+services.addAuthenotcation()
+
+where you can add static files in .net core ?
+
+app.usestaticfiles()
+
+
+how to use coockies in .net core 
+
+
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+CookieAuthenticationDefaults.AuthenticationScheme
+
+
+
+what is difference between .net core and .net frame work and .net standar library?
+
+
+
+
+
+latest vesrion on .net core?
+
+
+
+
+.net core runs on which servers?
+
+
+
+solid principles?
+ 
+Single Responsibility Principle (SRP) :- module or class should have a very small piece of responsibility in the entire application
+Open Closed Principle (OCP):-This principle suggests that the class should be easily extended but there is no need to change its core implementations. inheritance
+Liskov Substitution Principle (LSP):- LSP states that the child class should be perfectly substitutable for their parent class. If class C is derived from P then C should be substitutable for P ---overriding
+Dependency Inversion Principle (DIP) :It allows the creation of dependent objects outside of a class and provides those objects to a class through different ways
+
+
+web api media type formateets 
+
+JsonMediaTypeFormatter	application/json, text/json	Handles JSON format
+XmlMediaTypeFormatter	application/xml, text/json	Handles XML format
+FormUrlEncodedMediaTypeFormatter  
+
+
+2nd highest salary?
+
+
+
+SELECT TOP 1 SALARY  
+FROM (  
+      SELECT DISTINCT TOP 2 SALARY  
+      FROM tbl_Employees  
+      ORDER BY SALARY DESC  
+      ) RESULT  
+ORDER BY SALARY
+
+
+WITH RESULT AS  
+(  
+    SELECT SALARY,  
+           DENSE_RANK() OVER (ORDER BY SALARY DESC) AS DENSERANK  
+    FROM tbl_Employees  
+)  
+SELECT TOP 1 SALARY  
+FROM RESULT  
+WHERE DENSERANK = 2  
+ 
+
+linq stntax 
+
+ from name in names
+                where name.Contains('a')
+                select name;
+
+
+
+
+var employee = Employees
+    .OrderByDescending(e => e.Salary)
+    .Skip(1)
+    .First();
+
+
+
+3
+I have following sql query for finding 2nd max salary.
+
+
+Select * From Employee E1 Where
+    (2) = (Select Count(Distinct(E2.Salary)) From Employee E2 Where
+        E2.Salary > E1.Salary)
+400 Bad Request
+The request could not be understood by the server due to incorrect syntax. The client SHOULD NOT repeat the request without modifications.
+401 Unauthorized
+Indicates that the request requires user authentication information. The client MAY repeat the request with a suitable Authorization header field
+402 Payment Required (Experimental)
+Reserved for future use. It is aimed for using in the digital payment systems.
+403 Forbidden
+Unauthorized request. The client does not have access rights to the content. Unlike 401, the client’s identity is known to the server.
+404 Not Found
+The server can not find the requested resource.zzz
+
+204 no content 
+
+500 internal serve error
+
+502 Bad Gateway
+
+504 Gateway Timeout
+
+
+coockes default time 3 30 minutes to time out 
+
+mvc appliation life cycle
+
+Creating the request object,
+
+fill the route
+
+fecth the route 
+
+requext context created 
+
+creattng instaance of controller
+
+
+Creating a Response object
+
+Action Filters
+Action filters are used to implement logic that gets executed before and after a controller action executes. We will look at Action Filters in detail in this chapter.
+Authorization Filters
+Authorization filters are used to implement authentication and authorization for controller actions.
+Result Filters
+Result filters contain logic that is executed before and after a view result is executed. For example, you might want to modify a view result right before the view is rendered to the browser.
+Exception Filters
+Exception filters are the last type of filter to run. You can use an exception filter to handle errors raised by either your controller actions or controller action results. You can also use exception filters to log errors.
+
+what is differnece between .net core and .net 5  
+
+.net 5 is next rellease of .net core 3.1 
+
+.net frmae work last version is 4.8 
+
+now they removed core from the name and they releae .net 5  wich supports .net core and .net frame work 
+
+
+what is difference between .net framework and .net core
+
+.net core is cross platform    .net  platforms for windows os()
+
+.net core opensource           The.Net Framework includes certain open-source components.
+
+.net supports all universla apps, mobile apps, gaming apps   .net frame work supprots for asp.net, wpf, WCF , windows 
+
+in buils we have ioc container so dependecy ojection featrure avaialcble in built,   we have design ioc and next we inject the classess 
+
+
+what is difference between .net standard library and .net frame work ?
+
+
+in ado .net how many vonnection can we opern is ther any limit?
+
+
+The default maximum pool size is 100, while the default minimum pool size is 0. The following is an example of a . NET connection string?
+
+
+what is difference berween apcontrooller, web api controller ?
+
+
+what n-unit testing frame work exmaple?

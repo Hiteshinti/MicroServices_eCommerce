@@ -22,7 +22,7 @@ namespace eCommerce.Infrastructure.Repository
         public async Task<ApplicationUser?> AddUser(ApplicationUser applicationUser)
         { 
             applicationUser.UserId = Guid.NewGuid();    
-            string? query = "INSERT INTO public.\"Users\" VALUES(@UserId,@UserName,@Email,@Password,@Gender)";
+            string? query = "INSERT INTO \"Users\" VALUES(@UserId,@UserName,@Email,@Password,@Gender)";
 
             int rowsAffected=  await _dapperDbContext.DbConnection.ExecuteAsync(query, applicationUser);
             if (rowsAffected > 0)
@@ -34,7 +34,7 @@ namespace eCommerce.Infrastructure.Repository
         public async Task<ApplicationUser?> GetUserByEmailAndPassword(string email, string password)
         {
 
-            string?query = "SELECT * FROM public.\"Users\" WHERE \"Email\"=@Email AND \"Password\" = @Password";
+            string?query = "SELECT * FROM \"Users\" WHERE \"Email\"=@Email AND \"Password\" = @Password";
             var parameters = new { Email = email, Password = password };
 
             ApplicationUser?user= await _dapperDbContext.DbConnection.QueryFirstOrDefaultAsync<ApplicationUser>(query, parameters);

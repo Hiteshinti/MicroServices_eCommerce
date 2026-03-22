@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200", "http://localhost:5067")
+            policy.WithOrigins("http://localhost:5243")
                    .AllowAnyMethod()
                    .AllowAnyHeader()
                   .AllowCredentials();
@@ -53,7 +53,7 @@ builder.Services.AddAuthentication(options =>
 }).AddJwtBearer(options =>
 {
 
-   options.TokenValidationParameters = new TokenValidationParameters()
+    options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -69,6 +69,7 @@ builder.Services.AddAuthentication(options =>
 
 
 var app = builder.Build();
+app.UseStaticFiles();
 app.UseCors("AllowAll");
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseRouting();
@@ -77,7 +78,7 @@ app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    //c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserService");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
 
 });
 app.MapControllers();

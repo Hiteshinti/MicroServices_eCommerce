@@ -1,13 +1,21 @@
 services:
   ecommerce.api:
     container_name: ecommerce.api
-    image: userserviceapp:latest
+    image: usercontianerregistry.azurecr.io/userserviceapp:latest
     build:
       context: .
       dockerfile: eCommerce.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - ASPNETCORE_URLS=http://+:8080
     ports:
-      - 5013:6000
+      - "8080:8080"
+      # - "5013:6000"
+    networks:
+      - ocelot-shared-network
 
-    
+networks:
+  ocelot-shared-network:
+    external: true
