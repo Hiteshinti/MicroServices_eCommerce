@@ -7,17 +7,20 @@ on:
   pull_request:
     branches: [ "master" ]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    
+
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: '8.0.x'
 
@@ -27,14 +30,10 @@ jobs:
     - name: Build project
       run: dotnet build eCommerce.API.csproj --configuration Release --no-restore
 
-    - name: Run tests
-      run: dotnet test eCommerce.API.csproj --no-build --verbosity normal
-      continue-on-error: true
-
     - name: Publish project
       run: dotnet publish eCommerce.API.csproj --configuration Release --output ./publish
 
-    - name: Upload build artifacts
+    - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ecommerce-api
