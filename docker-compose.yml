@@ -9,10 +9,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_URLS=http://+:7070
     ports:
-      - "8080:8080"
-      # - "5013:6000"
+      - "7070:7070"
     networks:
       - ocelot-shared-network
 
