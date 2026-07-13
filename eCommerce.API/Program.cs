@@ -14,17 +14,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 var builder = WebApplication.CreateBuilder(args);
 
 //AddCors
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:5243")
-                   .AllowAnyMethod()
-                   .AllowAnyHeader()
-                  .AllowCredentials();
-        });
-});
+
 
 
 //Adding Services
@@ -37,6 +27,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddAutoMapper(cfg => cfg.LicenseKey = "<License Key Here>", typeof(ApplicationUserMapping).Assembly);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 
 var key = builder.Configuration["Jwt:Key"];
@@ -70,7 +61,6 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 app.UseStaticFiles();
-app.UseCors("AllowAll");
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseRouting();
 app.UseAuthentication();

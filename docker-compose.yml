@@ -1,7 +1,7 @@
 services:
   ecommerce.api:
     container_name: ecommerce.api
-    image: userserviceapp:latest
+    image: userserviceapp:1.0.0
     build:
       context: .
       dockerfile: eCommerce.API/Dockerfile
