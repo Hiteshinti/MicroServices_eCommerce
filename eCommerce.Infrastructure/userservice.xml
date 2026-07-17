@@ -1,0 +1,48 @@
+<policies>
+    <inbound>
+        <base />
+
+        <choose>
+            <when condition="@(context.Request.OriginalUrl.Path.EndsWith(&quot;/register&quot;))">
+                <rewrite-uri template="/api/Auth/register" />
+            </when>
+
+            <when condition="@(context.Request.OriginalUrl.Path.EndsWith(&quot;/login&quot;))">
+                <rewrite-uri template="/api/Auth/login" />
+            </when>
+        </choose>
+
+        <cors allow-credentials="true">
+            <allowed-origins>
+                <origin>https://example.com</origin>
+                <origin>https://app.example.com</origin>
+            </allowed-origins>
+
+            <allowed-methods preflight-result-max-age="300">
+                <method>POST</method>
+                <method>OPTIONS</method>
+            </allowed-methods>
+
+            <allowed-headers>
+                <header>*</header>
+            </allowed-headers>
+
+            <expose-headers>
+                <header>*</header>
+            </expose-headers>
+        </cors>
+
+    </inbound>
+
+    <backend>
+        <base />
+    </backend>
+
+    <outbound>
+        <base />
+    </outbound>
+
+    <on-error>
+        <base />
+    </on-error>
+</policies>
